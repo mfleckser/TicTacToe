@@ -2,17 +2,39 @@ import pygame
 
 
 class Board:
-    def __init__(self, size=0, colors={}, other=None):
+    def __init__(self, size=0, colors={}, other=None, string=None):
         if other is not None: # copy constructor
             self.turn = other.turn
             self.size = other.size
             self.colors = other.colors
             self.board = [i for i in other.board]
+            self.id = other.id
+        elif string is not None: # from string
+            self.id = string.split(":")[0]
+            boardString = string.split(":")[1]
+            self.board = []
+            for piece in boardString:
+                if piece == "X":
+                    self.board.append(1)
+                elif piece == "O":
+                    self.board.append(-1)
+                else:
+                    self.board.append(0)
         else:
             self.board = [0 for _ in range(9)]
             self.turn = 1
             self.size = size
             self.colors = colors
+            self.id = None
+
+    def __repr__(self):
+        result = self.id + ":"
+        pieces = ["-", "X", "O"]
+        
+        for piece in self.board:
+            result += pieces[piece]
+
+        return result
 
     # returns pygame surface including game board and all pieces
     def getGameSurface(self):
