@@ -1,7 +1,8 @@
 import "./Prompt.css";
 import { useState } from "react";
+import { getBoard } from "../data";
 
-const Prompt = ({ setShowPrompt }) => {
+const Prompt = ({ setCurrGame, setShowPrompt }) => {
     const [code, setCode] = useState("");
 
     const handleCloseButton = () => {
@@ -12,8 +13,12 @@ const Prompt = ({ setShowPrompt }) => {
         setCode(e.target.value);
     }
 
-    const handleCodeSubmit = () => {
-        console.log(code);
+    const handleCodeSubmit = async () => {
+        const data = await getBoard(code)
+
+        if (data.success) {
+            setCurrGame(code);
+        }
     }
 
     return ( 

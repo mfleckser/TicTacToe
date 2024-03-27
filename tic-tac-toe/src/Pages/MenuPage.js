@@ -7,7 +7,7 @@ const MenuPage = ({ setCurrGame }) => {
 
     return ( <div id="menu-page" className="page">
         <Menu setCurrGame={setCurrGame} setShowPrompt={setShowPrompt} />
-        {showPrompt && <Prompt setShowPrompt={setShowPrompt} />}
+        {showPrompt && <Prompt setCurrGame={setCurrGame} setShowPrompt={setShowPrompt} />}
     </div> );
 }
 

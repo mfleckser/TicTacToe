@@ -1,6 +1,6 @@
 import random
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 from game.board import Board
 
 app = Flask(__name__)
@@ -20,16 +20,17 @@ def create():
 def get():
     requestId = request.args.get("id", type=str)
 
-    response = Response("Invalid Board ID", status=404)
+    response = jsonify({"success": False})
 
     with open("data.txt", "r") as db:
         for entry in db:
-            id, board = entry.split(",")
+            id, board = entry.strip().split(",")
 
             if id == requestId:
-                response = Response(board, status=200)
+                response = jsonify({"success": True, "board": board})
                 break
-            
+    
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
