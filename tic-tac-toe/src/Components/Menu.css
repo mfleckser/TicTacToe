@@ -1,0 +1,28 @@
+#menu {
+    height: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 10%;
+    background-color: #f0f8ff;
+
+    border: 1px solid #d0d8df;
+}
+
+#menu h1 {
+    font: 50px "Georgia";
+}
+
+#menu-buttons {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#menu-buttons button {
+    padding: 10px;
+}
