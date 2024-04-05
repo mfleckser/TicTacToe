@@ -1,8 +1,12 @@
 import "./Menu.css";
+import { createGame } from "../data";
 
 const Menu = ({ setCurrGame, setShowPrompt }) => {
-    const handleCreateOnline = () => {
-        setCurrGame("Hello");
+    const handleCreateOnline = async () => {
+        const res = await createGame();
+        const id = res.id;
+
+        setCurrGame(id);
     }
 
     const handleJoin = () => {

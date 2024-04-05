@@ -1,1 +1,8 @@
-GET http://127.0.0.1:5000/get?id=123456
+POST http://127.0.0.1:5000/play
+Content-Type: application/json
+
+{
+    "id": "123456",
+    "x": "1",
+    "y": 1
+}

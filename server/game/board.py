@@ -2,17 +2,16 @@ import pygame
 
 
 class Board:
-    def __init__(self, size=0, colors={}, other=None, string=None):
+    def __init__(self, size=0, colors={}, other=None, boardString=None):
         if other is not None: # copy constructor
             self.turn = other.turn
             self.size = other.size
             self.colors = other.colors
             self.board = [i for i in other.board]
-            self.id = other.id
-        elif string is not None: # from string
-            self.id = string.split(":")[0]
-            boardString = string.split(":")[1]
+        elif boardString is not None: # from string
+            self.turn = 0
             self.board = []
+
             for piece in boardString:
                 if piece == "X":
                     self.board.append(1)
@@ -20,15 +19,16 @@ class Board:
                     self.board.append(-1)
                 else:
                     self.board.append(0)
+
+            self.updateTurn()
         else:
             self.board = [0 for _ in range(9)]
             self.turn = 1
             self.size = size
             self.colors = colors
-            self.id = None
 
     def __repr__(self):
-        result = self.id + ":"
+        result = ""
         pieces = ["-", "X", "O"]
         
         for piece in self.board:
@@ -133,6 +133,9 @@ class Board:
     def reset(self):
         self.board = [0 for _ in range(9)]
         self.turn = 1
+
+    def updateTurn(self):
+        self.turn =  -2 * sum(self.board) + 1
     
     # checks if the game is finish, and if so the winner
     # returns- tie: 0, X: 1, O: -1, Game in progress: None

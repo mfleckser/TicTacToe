@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import "./Game.css";
 
-const Game = ({ board }) => {
+const Game = ({ board, attemptMove }) => {
     const canvasRef = useRef(null);
 
     const line = (context, p1, p2) => {
@@ -14,6 +14,8 @@ const Game = ({ board }) => {
     const draw = context => {
         context.lineWidth = 10;
         const size = context.canvas.width / 3; // size of each square
+
+        context.clearRect(0, 0, size * 3, size * 3);
         
         // draw board
         line(context, [size, 0], [size, 3 * size]);
@@ -47,7 +49,8 @@ const Game = ({ board }) => {
         const size = e.target.clientWidth / 3;
         const x = Math.floor((e.pageX - e.target.offsetLeft) / size);
         const y = Math.floor(e.pageY / size);
-        console.log("X: ", x, ", Y: ", y);
+        
+        attemptMove(x, y);
     }
 
     return ( 
